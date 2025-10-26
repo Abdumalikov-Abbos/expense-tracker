@@ -3,23 +3,37 @@ import AuthLayout from "../../components/layouts/AuthLayout";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../../components/layouts/Inputs/Input";
+import { validateEmail } from "../../utils/helper";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
-   const   handleLogin = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    // setLoading(true);
+    // setError("");
+    // setSuccess("");
+    // // Perform login logic here
+    // setLoading(false);
+    // navigate("/dashboard");
+
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email");
+      return;
+    }
+
+    if (!password) {
+      setError("Please enter your password");
+      return;
+    }
     setError("");
-    setSuccess("");
-    // Perform login logic here
-    setLoading(false);
-    navigate("/dashboard");
+
+    //Login API Call
   };
   return (
     <AuthLayout>
@@ -45,16 +59,14 @@ const Login = () => {
             type="password"
           />
 
-          {
-            error && <p className="">{error}</p>
-          }
+          {error && <p className="text-red-500">{error}</p>}
           <button type="submit" className="btn-primary">
             LOGIN
           </button>
           <p className="text-[13px] text-slate-800 mt-3">
             Do not have an account?{" "}
             <Link className="font-medium text-primary underline" to="/signup">
-            SignUp 
+              SignUp
             </Link>
           </p>
         </form>
