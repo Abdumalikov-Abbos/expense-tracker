@@ -1,4 +1,4 @@
-const User = require("../models/userModel");
+const User = require("../models/User");
 const Income = require("../models/Income");
 //Add Income Source
 
@@ -31,4 +31,6 @@ exports.getAllIncome = async (req, res) => {};
 //Delete Income Source
 exports.deleteIncome = async (req, res) => {};
 //Donwload Income Excel
-exports.downloadIncomeExel = async (req, res) => {};
+exports.downloadIncomeExcel = async (req, res) => {};
+
+
