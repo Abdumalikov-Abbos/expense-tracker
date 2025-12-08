@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema(
     profileImageUrl: { type: String, default: null },
     createdAt: { type: Date, default: Date.now },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 //Hash password before saving
@@ -26,7 +26,7 @@ UserSchema.pre("save", async function (next) {
 //Compare password method
 UserSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
-}
+};
 
 const User = mongoose.model("User", UserSchema);
-module.exports = User;  
+module.exports = User;

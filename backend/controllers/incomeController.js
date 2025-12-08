@@ -48,7 +48,7 @@ exports.deleteIncome = async (req, res) => {
 };
 //Donwload Income Excel
 exports.downloadIncomeExcel = async (req, res) => {
-  const userId = req.user.id;
+  // const userId = req.user.id;
 
   try {
     const income = await Income.find({ userId }).sort({ date: -1 });

@@ -20,17 +20,17 @@ const SignUp = () => {
     e.preventDefault();
     let profilePicUrl = "";
 
-    if(!fullName){
+    if (!fullName) {
       setError("Please enter your full name");
       return;
     }
 
-    if(!validateEmail(email)){
+    if (!validateEmail(email)) {
       setError("Please enter a valid email address");
       return;
     }
 
-    if(!password){
+    if (!password) {
       setError("Please enter your password");
       return;
     }
@@ -51,8 +51,6 @@ const SignUp = () => {
     // }
     // setError("");
     // SignUp API Call
-
-
   };
   return (
     <AuthLayout>
@@ -90,15 +88,15 @@ const SignUp = () => {
             </div>
           </div>
           {error && <p className="text-red-500">{error}</p>}
-                    <button type="submit" className="btn-primary">
-                      SIGN UP
-                    </button>
-                    <p className="text-[13px] text-slate-800 mt-3">
-                      Already have an account?{" "}
-                      <Link className="font-medium text-primary underline" to="/login">
-                        Login
-                      </Link>
-                    </p>
+          <button type="submit" className="btn-primary">
+            SIGN UP
+          </button>
+          <p className="text-[13px] text-slate-800 mt-3">
+            Already have an account?{" "}
+            <Link className="font-medium text-primary underline" to="/login">
+              Login
+            </Link>
+          </p>
         </form>
       </div>
     </AuthLayout>

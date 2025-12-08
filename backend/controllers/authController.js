@@ -15,14 +15,12 @@ exports.registerUser = async (req, res) => {
   //Validation: Check for mising fields
 
   if (!fullName || !email || !password) {
-    return res
-      .status(400)
-      .json({ message: "All fields are required" });
+    return res.status(400).json({ message: "All fields are required" });
   }
 
   try {
     //Check if email already exists
-console.log("BODY:", req.body);
+    console.log("BODY:", req.body);
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "Email already in use" });
@@ -52,13 +50,13 @@ exports.loginUser = async (req, res) => {
 
   const { email, password } = req.body;
 
-  if(!email || !password) {
-    return  res.status(400).json({ message: "All fields are required" });
+  if (!email || !password) {
+    return res.status(400).json({ message: "All fields are required" });
   }
 
-  try{
+  try {
     const user = await User.findOne({ email });
-    if(!user || !(await user.comparePassword(password))) {
+    if (!user || !(await user.comparePassword(password))) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
     res.status(200).json({
@@ -66,8 +64,10 @@ exports.loginUser = async (req, res) => {
       user,
       token: generateToken(user._id),
     });
-  }catch(error){
-    return res.status(500).json({ message: "Error login user", error: error.message });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Error login user", error: error.message });
   }
 };
 
@@ -76,14 +76,15 @@ exports.getUserInfo = async (req, res) => {
   // Get User Info logic here
 
   try {
-  const user = await User.findById(req.user.id).select("-password");
+    const user = await User.findById(req.user.id).select("-password");
 
-  if(!user) {
-    return res.status(404).json({ message: "User not found" });
-  }
-  res.status(200).json(user);
-  }catch(error){
-    return res.status(500).json({ message: "Error getting user info", error: error.message });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Error getting user info", error: error.message });
   }
 };
-
